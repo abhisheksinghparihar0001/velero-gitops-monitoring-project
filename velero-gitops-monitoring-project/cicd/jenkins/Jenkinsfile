@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+
+  environment {
+    KUBECONFIG = credentials('kubeconfig')
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Validate YAMLs') {
+      steps {
+        sh 'kubectl apply --dry-run=client -f app/'
+      }
+    }
+
+    stage('Deploy to Kubernetes') {
+      steps {
+        sh 'kubectl apply -f app/'
+      }
+    }
+
+  }
+
+  post {
+    success {
+      echo 'Deployment Successful'
+    }
+    failure {
+      echo 'Deployment Failed'
+    }
+  }
+}

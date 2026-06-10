@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-backup
+  namespace: velero
+spec:
+  schedule: "0 2 * * *"   # daily 2 AM
+
+  template:
+    includedNamespaces:
+      - production
+
+    ttl: 168h
+
+    snapshotVolumes: true

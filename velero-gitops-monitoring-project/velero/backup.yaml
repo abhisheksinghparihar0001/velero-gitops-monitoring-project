@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: manual-backup
+  namespace: velero
+spec:
+  includedNamespaces:
+    - production
+
+  excludedResources:
+    - events
+
+  storageLocation: default
+
+  ttl: 720h

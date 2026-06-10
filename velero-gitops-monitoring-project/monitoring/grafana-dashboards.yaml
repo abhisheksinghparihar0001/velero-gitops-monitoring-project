@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: monitoring
+data:
+  demo-dashboard.json: |
+    {
+      "title": "Production Cluster Dashboard",
+      "panels": [
+        {
+          "title": "CPU Usage",
+          "type": "graph",
+          "targets": [
+            {
+              "expr": "sum(rate(container_cpu_usage_seconds_total[5m]))",
+              "legendFormat": "CPU"
+            }
+          ]
+        },
+        {
+          "title": "Memory Usage",
+          "type": "graph",
+          "targets": [
+            {
+              "expr": "sum(container_memory_usage_bytes)",
+              "legendFormat": "Memory"
+            }
+          ]
+        },
+        {
+          "title": "Pod Count",
+          "type": "stat",
+          "targets": [
+            {
+              "expr": "count(kube_pod_info)",
+              "legendFormat": "Pods"
+            }
+          ]
+        }
+      ]
+    }
