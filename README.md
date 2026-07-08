@@ -87,9 +87,6 @@ This project uses the following technologies and tools:
 
 ---
 
-
----
-
 ## 🧰 Prerequisites
 
 - Ubuntu / Linux system
